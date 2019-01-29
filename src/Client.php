@@ -109,9 +109,9 @@ abstract class Client {
 
             $url = $this->baseUrl . $modulePath;
 
-            $curl->setHeader('Authorization', $this->getCurrentAccessToken());
+            $curl->setHeader('Authorization', 'Authorization: Bearer ' . $this->getCurrentAccessToken());
             $response = $curl->httpPostRequest($url, $data);
-            return $this->handleResponse($response);
+            return $this->handleResponse($response['body']);
         } catch (ScoroAccessTokenExpiredException $e) {
             if ($this->refreshTokens()){
                 return $this->makeRequestPost($modulePath, $data);
@@ -125,7 +125,7 @@ abstract class Client {
         $curl = $this->getCurl();
         $url = $this->baseUrl . $modulePath;
         $response = $curl->httpGetRequest($url);
-        return $this->handleResponse($response);
+        return $this->handleResponse($response['body']);
     }
 
     protected function getCurl() {
