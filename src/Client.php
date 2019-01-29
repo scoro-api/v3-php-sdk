@@ -103,7 +103,7 @@ abstract class Client {
         return $this->baseUrl . 'auth?'.$queryAddOn;
     }
 
-    protected function makeRequestPost($modulePath, array $data) {
+    public function makeRequestPost($modulePath, array $data) {
         try{
             $curl = $this->getCurl();
 
@@ -121,7 +121,7 @@ abstract class Client {
         }
     }
 
-    protected function makeRequestGet($modulePath) {
+    public function makeRequestGet($modulePath) {
         $curl = $this->getCurl();
         $url = $this->baseUrl . $modulePath;
         $response = $curl->httpGetRequest($url);
