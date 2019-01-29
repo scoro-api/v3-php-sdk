@@ -89,4 +89,62 @@ class ScoroTest extends \PHPUnit\Framework\TestCase {
 
     }
 
+    /**
+     * @test
+     * @backupGlobals enabled
+     */
+    public function testAuthUrl() {
+
+        $client = new TestClient(self::CLIENT_ID, self::CLIENT_SECRET, self::CLIENT_SITE_URL);
+
+
+        $url = $client->getAuthUrl('retUrl', 'scrfToken');
+        $data = parse_url($url);
+        $queryParameters = $this->getQueryArgsAsArray($data);
+
+
+        self::assertEquals('retUrl', $queryParameters['redirect_uri']);
+        self::assertEquals(self::CLIENT_ID, $queryParameters['client_id']);
+        self::assertEquals(TestClient::SCOPE_COMPANY, $queryParameters['scope']);
+        self::assertEquals('scrfToken', $queryParameters['state']);
+
+
+
+        $url = $client->getAuthUrl('retUrl', 'scrfToken', TestClient::SCOPE_USER,'challengeString');
+        $data = parse_url($url);
+        $queryParameters = $this->getQueryArgsAsArray($data);
+
+
+        self::assertEquals('retUrl', $queryParameters['redirect_uri']);
+        self::assertEquals(self::CLIENT_ID, $queryParameters['client_id']);
+        self::assertEquals(TestClient::SCOPE_USER, $queryParameters['scope']);
+        self::assertEquals('scrfToken', $queryParameters['state']);
+        self::assertEquals('challengeString', $queryParameters['code_challenge']);
+        self::assertEquals('S256', $queryParameters['code_challenge_method']);
+
+
+        $url = $client->getAuthUrl('retUrl', 'scrfToken', 'gibersih','challengeString');
+        $data = parse_url($url);
+        $queryParameters = $this->getQueryArgsAsArray($data);
+
+        self::assertEquals(TestClient::SCOPE_COMPANY, $queryParameters['scope']);
+
+
+
+    }
+
+    /**
+     * @param $data
+     * @return array
+     */
+    private function getQueryArgsAsArray($data): array {
+        $tmp = explode('&', $data['query']);
+        $queryParameters = [];
+        foreach ($tmp as $arg) {
+            $var = explode('=', $arg);
+            $queryParameters[$var[0]] = $var[1];
+        }
+        return $queryParameters;
+    }
+
 }

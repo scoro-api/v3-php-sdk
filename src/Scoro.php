@@ -3,6 +3,9 @@ namespace Scoro;
 
 abstract class Client {
 
+    const SCOPE_USER = 'user';
+    const SCOPE_COMPANY = 'company';
+
     private $clientId;
     private $clientSecret;
     private $baseUrl;
@@ -78,6 +81,26 @@ abstract class Client {
      */
     public function setClientSecret($clientSecret) {
         $this->clientSecret = $clientSecret;
+    }
+
+    /**
+     * @param $redirectUrl
+     * @param $state - This is CSRF token that will be returned from
+     * @param string $scope - company wide or user based
+     * @param string $codeChallenge - for PKCE(Proof Key for Code Exchange) approach
+     * @return string
+     */
+
+    public function getAuthUrl($redirectUrl, $state, $scope = self::SCOPE_COMPANY, $codeChallenge = '') {
+        if (!in_array($scope, [Client::SCOPE_COMPANY, Client::SCOPE_USER])) {
+            $scope = Client::SCOPE_COMPANY;
+        }
+
+        $queryAddOn = 'redirect_uri=' . $redirectUrl . '&client_id=' . $this->getClientId() . '&scope=' . $scope . '&state=' . $state;
+        if ($codeChallenge) {
+            $queryAddOn .= '&code_challenge=' . $codeChallenge . '&code_challenge_method=S256';
+        }
+        return $this->baseUrl . 'auth?'.$queryAddOn;
     }
 
     protected function makeRequestPost($modulePath, array $data) {
