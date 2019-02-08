@@ -1,13 +1,5 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Priit
- * Date: 29.01.2019
- * Time: 11:21
- */
-
 namespace Scoro;
-
 
 class Curl {
     protected $ch;
@@ -18,15 +10,15 @@ class Curl {
     private $headers;
 
     public function __construct() {
-        curl_setopt($this->getCurlHandler(), CURLOPT_SSL_VERIFYPEER, FALSE);
+        curl_setopt($this->getCurlHandler(), CURLOPT_SSL_VERIFYPEER, false);
         curl_setopt($this->getCurlHandler(), CURLOPT_SSLVERSION, CURL_SSLVERSION_TLSv1_2);
         curl_setopt($this->getCurlHandler(), CURLOPT_HEADER, 1);
-        curl_setopt($this->getCurlHandler(), CURLOPT_HTTPGET, TRUE);
-        curl_setopt($this->getCurlHandler(), CURLINFO_HEADER_OUT, TRUE);
-        curl_setopt($this->getCurlHandler(), CURLOPT_RETURNTRANSFER, TRUE);
-        curl_setopt($this->getCurlHandler(), CURLOPT_AUTOREFERER, TRUE);
+        curl_setopt($this->getCurlHandler(), CURLOPT_HTTPGET, true);
+        curl_setopt($this->getCurlHandler(), CURLINFO_HEADER_OUT, true);
+        curl_setopt($this->getCurlHandler(), CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($this->getCurlHandler(), CURLOPT_AUTOREFERER, true);
         curl_setopt($this->getCurlHandler(), CURLOPT_USERAGENT, "Mozilla/5.0 (Windows NT 5.1; rv:16.0) Gecko/20100101 Firefox/35.0.1");
-        curl_setopt($this->getCurlHandler(), CURLOPT_FOLLOWLOCATION, TRUE);
+        curl_setopt($this->getCurlHandler(), CURLOPT_FOLLOWLOCATION, true);
         curl_setopt($this->getCurlHandler(), CURLOPT_CONNECTTIMEOUT, 10);
 
     }
@@ -152,13 +144,6 @@ class Curl {
 
     public function getRequestHeadersSent() {
         return curl_getinfo($this->getCurlHandler())['request_header'];
-    }
-
-    /**
-     * @return mixed
-     */
-    public function wgetUrl() {
-        return $this->url;
     }
 
     /**

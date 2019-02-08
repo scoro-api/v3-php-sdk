@@ -1,10 +1,5 @@
 <?php
-/**
- * Created by IntelliJ IDEA.
- * User: Priit
- * Date: 29.01.2019
- * Time: 11:02
- */
+
 require_once __DIR__ . '/../vendor/autoload.php';
 require_once __DIR__ . '/TestClient.php';
 class ScoroTest extends \PHPUnit\Framework\TestCase {
