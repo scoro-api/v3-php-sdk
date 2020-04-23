@@ -2,7 +2,7 @@
 
 require __DIR__.'/../vendor/autoload.php';
 
-use Scoro\Client;
+use ScoroAPI\Client;
 
 class TestClient extends Client {
 

@@ -1,4 +1,4 @@
 <?php
-namespace Scoro;
+namespace ScoroAPI;
 
 class ScoroAccessTokenExpiredException extends \Exception {}

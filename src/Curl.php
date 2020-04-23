@@ -1,5 +1,5 @@
 <?php
-namespace Scoro;
+namespace ScoroAPI;
 
 class Curl {
     protected $ch;

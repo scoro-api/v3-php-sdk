@@ -14,10 +14,10 @@ class ScoroTest extends \PHPUnit\Framework\TestCase {
      */
 
     public function testConstructorValues() {
-        self::expectException(\Scoro\ScoroException::class);
+        self::expectException(\ScoroAPI\ScoroException::class);
         new TestClient(self::CLIENT_ID, self::CLIENT_SECRET, 'bad url');
 
-        self::expectException(\Scoro\ScoroException::class);
+        self::expectException(\ScoroAPI\ScoroException::class);
         new TestClient(self::CLIENT_ID, self::CLIENT_SECRET, 'http://scoro.scoro.com');
     }
 
@@ -39,8 +39,8 @@ class ScoroTest extends \PHPUnit\Framework\TestCase {
         });
 
 
-        /* @var $curl \Scoro\Curl*/
-        $curl = $this->getMockBuilder(\Scoro\Curl::class)
+        /* @var $curl \ScoroAPI\Curl*/
+        $curl = $this->getMockBuilder(\ScoroAPI\Curl::class)
             ->setMethods(['httpPostRequest', 'exec'])
             ->getMock();
 
@@ -66,7 +66,7 @@ class ScoroTest extends \PHPUnit\Framework\TestCase {
             } else if (empty($_SESSION['tokenRefreshed'])) {
                 return [
                         'status' => 'ERROR',
-                        'messages' => ['error' => [\Scoro\ErrorType::MESSAGE_OAUTH_ACCESS_TOKEN_EXPIRED]],
+                        'messages' => ['error' => [\ScoroAPI\ErrorType::MESSAGE_OAUTH_ACCESS_TOKEN_EXPIRED]],
                     ];
             } else {
                 return [
