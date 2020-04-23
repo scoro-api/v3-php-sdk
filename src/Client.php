@@ -1,5 +1,5 @@
 <?php
-namespace Scoro;
+namespace ScoroAPI;
 
 abstract class Client {
 
@@ -144,7 +144,7 @@ abstract class Client {
 
             $errorType = $response['messages']['error'][0] ?? null;
             switch ($errorType) {
-                case \Scoro\ErrorType::MESSAGE_OAUTH_ACCESS_TOKEN_EXPIRED;
+                case \ScoroAPI\ErrorType::MESSAGE_OAUTH_ACCESS_TOKEN_EXPIRED;
                     throw new ScoroAccessTokenExpiredException();
                 default:
                     throw new ScoroException();
