@@ -84,7 +84,7 @@ class ScoroTest extends \PHPUnit\Framework\TestCase {
 
         $client->setCurl($curl);
 
-        $client->getList('projects');
+        $client->list('projects');
 
         self::assertEquals('newRefreshToken', $client->getCurrentRefreshToken());
 
