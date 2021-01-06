@@ -100,7 +100,7 @@ abstract class Client {
         if ($codeChallenge) {
             $queryAddOn .= '&code_challenge=' . $codeChallenge . '&code_challenge_method=S256';
         }
-        return $this->baseUrl . 'auth?'.$queryAddOn;
+        return $this->baseUrl . 'apiAuth?'.$queryAddOn;
     }
 
     public function makeRequestPost($modulePath, array $data) {

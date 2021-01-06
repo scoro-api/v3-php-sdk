@@ -96,7 +96,9 @@ class Curl {
             $result['headers'][$header][] = rtrim($m[2][$index], "\r");
         }
 
-        if ($redirectLink = $result['headers']['Location'][0]) {
+		$redirectLink = $result['headers']['Location'][0] ?? '';
+
+        if ($redirectLink) {
             if (substr($redirectLink, 0, 4) != 'http') {
                 $urlParts = parse_url($result['last_url']);
                 $link = $urlParts['scheme'] . '://' . $urlParts['host'] . $redirectLink;
