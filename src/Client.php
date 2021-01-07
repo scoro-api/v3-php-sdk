@@ -45,7 +45,7 @@ abstract class Client {
         $this->curl = $curl;
     }
 
-    public function getList($modulePath, $filterArguments = []) {
+    public function list(string $modulePath, array $filterArguments = []) {
 
         $dataToPost = ['lang' => $this->getLanguage()];
         if (!empty($filterArguments)) {
@@ -54,6 +54,36 @@ abstract class Client {
 
         return $this->makeRequestPost($modulePath, $filterArguments);
     }
+
+	public function view(string $modulePath, int $id) {
+		$modulePath .= '/view/' . $id;
+		$dataToPost = ['lang' => $this->getLanguage()];
+
+		return $this->makeRequestPost($modulePath, $dataToPost);
+	}
+
+	public function create(string $modulePath, array $data = []) {
+		return $this->update($modulePath, 0, $data);
+	}
+
+	public function update(string $modulePath, int $id, array $data = []) {
+		$modulePath .= '/modify/' . $id;
+		$dataToPost = ['lang' => $this->getLanguage()];
+
+		if (!empty($data)) {
+			$dataToPost['request'] = $data;
+		}
+
+		return $this->makeRequestPost($modulePath, $dataToPost);
+	}
+
+	public function delete(string $modulePath, int $id) {
+		$modulePath .= '/delete/' . $id;
+
+		$dataToPost = ['lang' => $this->getLanguage()];
+
+		return $this->makeRequestPost($modulePath, $dataToPost);
+	}
 
     /**
      * @return mixed

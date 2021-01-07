@@ -58,27 +58,33 @@ class ScoroTest extends \PHPUnit\Framework\TestCase {
         $curl->method('httpPostRequest')->willReturnCallback(function ($url, $dataToPost) {
             if (strpos($url,'/tokens')) {
                 return [
-                        'access_token' => 'newAccessToken',
-                        'refresh_token' => 'newRefreshToken',
-                        'expires_in' => 3600,
+                        'body' => [
+							'access_token' => 'newAccessToken',
+							'refresh_token' => 'newRefreshToken',
+							'expires_in' => 3600,
+						]
                     ];
 
             } else if (empty($_SESSION['tokenRefreshed'])) {
                 return [
-                        'status' => 'ERROR',
-                        'messages' => ['error' => [\ScoroAPI\ErrorType::MESSAGE_OAUTH_ACCESS_TOKEN_EXPIRED]],
+                        'body' => [
+							'status' => 'ERROR',
+							'messages' => ['error' => [\ScoroAPI\ErrorType::MESSAGE_OAUTH_ACCESS_TOKEN_EXPIRED]],
+						]
                     ];
             } else {
                 return [
-                    'status' => 'OK',
-                    'data' => [],
+                    'body' => [
+						'status' => 'OK',
+						'data' => [],
+					]
                 ];
             }
         });
 
         $client->setCurl($curl);
 
-        $client->getList('projects');
+        $client->list('projects');
 
         self::assertEquals('newRefreshToken', $client->getCurrentRefreshToken());
 
