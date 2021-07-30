@@ -177,7 +177,7 @@ abstract class Client {
                 case \ScoroAPI\ErrorType::MESSAGE_OAUTH_ACCESS_TOKEN_EXPIRED;
                     throw new ScoroAccessTokenExpiredException();
                 default:
-                    throw new ScoroException();
+                    throw new ScoroException($response['messages'] ?? []);
             }
 
         } else {
