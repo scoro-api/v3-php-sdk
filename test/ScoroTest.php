@@ -73,6 +73,7 @@ class ScoroTest extends \PHPUnit\Framework\TestCase {
 						]
                     ];
             } else {
+				self::assertEquals(['lang' => 'eng'], $dataToPost);
                 return [
                     'body' => [
 						'status' => 'OK',
