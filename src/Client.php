@@ -52,7 +52,7 @@ abstract class Client {
             $dataToPost['filter'] = $filterArguments;
         }
 
-        return $this->makeRequestPost($modulePath, $filterArguments);
+        return $this->makeRequestPost($modulePath, $dataToPost);
     }
 
 	public function view(string $modulePath, int $id) {
