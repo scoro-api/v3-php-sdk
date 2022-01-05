@@ -207,9 +207,13 @@ abstract class Client {
 
     }
 
-    private function getLanguage(): string {
+    public function getLanguage(): string {
         return $this->language;
     }
+
+	public function setLanguage(string $language) {
+		$this->language = $language;
+	}
 
 }
 
