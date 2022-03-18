@@ -2,8 +2,9 @@
     "name": "scoro/v3-php-sdk",
     "description": "Scoro API v3 SDK",
     "require": {
-        "php": ">=7.0"
-    },
+        "php": ">=7.0",
+        "ext-json": "*"
+	},
     "require-dev": {
         "phpunit/phpunit": ">=7.0"
     },
