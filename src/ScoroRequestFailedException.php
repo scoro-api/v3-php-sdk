@@ -1,7 +1,7 @@
 <?php
 namespace ScoroAPI;
 
-class ScoroRequestFailedException extends \Exception {
+class ScoroRequestFailedException extends ScoroException {
 
 	private $response;
 	private $errors;
